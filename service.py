@@ -6,7 +6,7 @@
 
 要完成的功能:
     1. 为用户添加可提现余额
-    2. 用户发起提现，记录请求/发送请求到第三方出账平台
+    2. 用户发起提现，发送请求到第三方出账平台
 
 可以假设:
     1. 用户的可提现余额(balance)和对应币种(currency)会储存在Wallet里(见wallet.py)。
@@ -25,16 +25,24 @@
 """
 
 import random
-from wallet import WalletRepository, Currency
 
-
-def send_payout_request(amount, currency, error_rate: float = 0.5):
-    # error_rate > 1 就一定失败，< 0 就一定成功
-    if random.random() < error_rate:
-        raise Exception("Payout request failed")
-    return amount, currency
+from wallet import Currency, WalletRepository
 
 
 class PayoutService:
     def __init__(self):
+        pass
+
+    def send_payout_request(self, amount, currency, error_rate: float = 0.5):
+        # error_rate > 1 就一定失败，< 0 就一定成功
+        if random.random() < error_rate:
+            raise Exception("Payout request failed")
+        return amount, currency
+
+    def add_funds(self, amount, currency, user_id):
+        # 1. 为用户添加可提现余额
+        pass
+
+    def withdraw_funds(self, amount, currency, user_id):
+        # 2. 用户发起提现，发送请求到第三方出账平台
         pass
